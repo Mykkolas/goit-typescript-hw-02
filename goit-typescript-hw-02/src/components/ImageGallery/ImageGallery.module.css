@@ -1,0 +1,34 @@
+.gallery {
+    margin-top: 50px;
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Default: 1 column for small screens */
+@media (max-width: 600px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablets: 3 columns */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Desktops: 4 columns */
+@media (min-width: 1025px) {
+    .gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.galleryItem {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

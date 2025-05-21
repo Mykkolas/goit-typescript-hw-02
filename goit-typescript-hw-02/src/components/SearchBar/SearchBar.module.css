@@ -1,0 +1,50 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.3);
+    /* Semi-transparent white */
+    backdrop-filter: blur(10px);
+    /* Applies the blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari support */
+    height: 50px;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Optional: subtle border */
+}
+
+.searchBtn {
+    background: white;
+    height: 30px;
+    width: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.searchInput {
+    background: white;
+    outline: none;
+    border: none;
+    height: 28px;
+    width: 250px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.disabledInput,
+.disabledBtn {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.disabledInput {
+    composes: searchInput;
+}
+
+.disabledBtn {
+    composes: searchBtn;
+}
