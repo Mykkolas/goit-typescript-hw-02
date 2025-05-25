@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useState, type JSX } from 'react'
 import SearchBar from './components/SearchBar/SearchBar'
 import toast, { Toaster } from 'react-hot-toast'
 import axios from 'axios'
@@ -8,21 +8,26 @@ import Loader from './components/Loader/Loader'
 import ErrorMessage from './components/ErrorMessage/ErrorMessage'
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn'
 import ImageModal from './components/ImageModal/ImageModal'
+import type { UnsplashApiResponse, UnsplashImage } from './types/types'
 
-function App() {
 
-  const [images, setImages] = useState([])
+
+
+function App(): JSX.Element {
+
+  const [images, setImages] = useState<UnsplashImage[]>([]);
   const [loading, setLoading] = useState(false)
   const [loadingMore, setLoadingMore] = useState(false)
   const [error, setError] = useState(false)
   const [page, setPage] = useState(1)
-  const [query, setQuery] = useState("")
+  const [query, setQuery] = useState<string>("")
   const [totalPages, setTotalPages] = useState(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(null)
+  const [selectedImage, setSelectedImage] = useState<UnsplashImage | null>(null);
+
 
   const KEY = "TMkyf0x3uXg1wyndXR4Nf2dY-Y9mHU3YTJzOrc9nXR0"
-  async function fetchImages(searchQuery, newPage = 1, isLoadMore = false) {
+  async function fetchImages(searchQuery: string, newPage = 1, isLoadMore = false): Promise<void> {
     try {
       if (isLoadMore) {
         setLoadingMore(true)
@@ -31,7 +36,7 @@ function App() {
         setLoading(true)
       }
       setError(false)
-      const response = await axios.get("https://api.unsplash.com/search/photos", {
+      const response = await axios.get<UnsplashApiResponse>("https://api.unsplash.com/search/photos", {
         params: { query: searchQuery, page: newPage, client_id: KEY, per_page: 12 },
       })
       console.log("API Response", response.data);
@@ -62,7 +67,7 @@ function App() {
     }
   }
 
-  async function loadMore() {
+  async function loadMore(): Promise<void> {
     setLoadingMore(true);
     try {
       await fetchImages(query, page + 1);
@@ -71,18 +76,18 @@ function App() {
     }
   }
 
-  function handleSearch(newQuery) {
+  function handleSearch(newQuery: string): void {
     setImages([])
     setPage(1)
     fetchImages(newQuery, 1)
   }
 
-  function openModal(image) {
+  function openModal(image: UnsplashImage): void {
     setIsModalOpen(true)
     setSelectedImage(image)
   }
 
-  function closeModal() {
+  function closeModal(): void {
     setIsModalOpen(false)
     setSelectedImage(null)
   }

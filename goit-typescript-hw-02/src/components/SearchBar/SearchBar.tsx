@@ -1,14 +1,20 @@
-import { useState } from "react"
+import React, { useState, type JSX } from "react"
 import s from "../SearchBar/SearchBar.module.css"
 import toast from "react-hot-toast"
 import { CiSearch } from "react-icons/ci";
 
-export default function SearchBar({ onSubmit, disabled }) {
-    const [query, setQuery] = useState("")
-    function handleChange(e) {
+interface Props {
+    onSubmit: (query: string) => void;
+    disabled: boolean
+}
+
+
+export default function SearchBar({ onSubmit, disabled }: Props): JSX.Element {
+    const [query, setQuery] = useState<string>("")
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
         setQuery(e.target.value)
     }
-    function handleSubmit(e) {
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>): void {
         e.preventDefault()
         const trimQuery = query.trim()
 
